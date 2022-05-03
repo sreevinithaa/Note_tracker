@@ -44,12 +44,32 @@ const readAndAppend = (content, file) => {
         console.error(err);
       } else {
         const parsedData = JSON.parse(data);
-        var obj=parsedData.find(item=>item.id==id);
-        parsedData.remove(obj);
+        var obj=parsedData.findIndex(item=>item.id==id);
+        
+       parsedData.splice(obj,1);
+        
         writeToFile(file, parsedData);
-        return parsedData;
+       
       }
     });
   };
 
-module.exports = { readFromFile, writeToFile, readAndAppend,readAndDelete };
+  /**
+ *  Function to read data from a given a file and append some content
+ *  @param {string} id The content you want to append to the file.
+ *  @param {string} file The path to the file you want to save to.
+ *  @returns {void} Nothing
+ */
+ const searchNote = (id, file) => {
+    fs.readFile(file, 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+      } else {
+        const parsedData = JSON.parse(data);
+        var obj=parsedData.find(item=>item.id==id);
+      
+        return obj;
+      }
+    });
+  };
+module.exports = { readFromFile, writeToFile, readAndAppend,readAndDelete,searchNote };
