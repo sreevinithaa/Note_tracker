@@ -17,7 +17,16 @@ epr.get("/:id", (req, res) =>
 );
 
 epr.delete("/:id", (req, res) =>
-  readAndDelete(req.params.id, "./db/db.json")
+{
+  readAndDelete(req.params.id, "./db/db.json");
+  const response = {
+    status: "success",
+    body: "Successfully Delete!",
+  };
+
+  res.json(response);
+}
+ 
 );
 
 // POST Route for submitting note
